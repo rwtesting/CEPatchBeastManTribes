@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]</xpath>
+		<value>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</value>
+	</Operation>
+
+	<!-- tools melee specifications - Add tools node if it doesn't exist -->
+	<Operation Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]/tools</xpath>
+      	<success>Invert</success>
+    	</li>
+    	<li Class="PatchOperationAdd">
+      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]</xpath>
+      	<value>
+        	<tools />
+      	</value>
+    	</li>
+  	</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]/tools</xpath>
+		<value>
+				<li Class="CombatExtended.ToolCE">
+					<label>left fist</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>7</power>
+					<cooldownTime>1.65</cooldownTime>
+					<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+					<armorPenetration>0.095</armorPenetration>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>right fist</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>7</power>
+					<cooldownTime>1.65</cooldownTime>
+					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+					<armorPenetration>0.095</armorPenetration>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>head</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>5</power>
+					<cooldownTime>1.85</cooldownTime>
+					<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+					<commonality>0.2</commonality>
+					<armorPenetration>0.079</armorPenetration>
+				</li>
+		</value>
+	</Operation>
+
+	<!-- Add comps node if it doesn't exist -->
+	<Operation Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]/comps</xpath>
+      	<success>Invert</success>
+    	</li>
+    	<li Class="PatchOperationAdd">
+      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]</xpath>
+      	<value>
+        	<comps />
+      	</value>
+    	</li>
+  	</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/AlienRace.ThingDef_AlienRace[defName="FoxMan"]/comps</xpath>
+		<value>
+			<li>
+			  <compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+			<li Class="CombatExtended.CompProperties_Suppressable" />
+		</value>
+	</Operation>
+</Patch>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ModMetaData>
+  <name>Beast Man Tribes + CE Patch (b18)</name>
+  <author>rwtesting</author>
+  <targetVersion>0.18.1722</targetVersion>
+  <description>Patch Beast Man Tribes to work with b18 Combat Extended.
+
+Added:
+- Race - bodyShape
+- Race - tools melee values
+- Race - CompPawnGizmo, CompProperties_Suppressable
+- Pawnkind - Loadout ammo min/max.
+</description>
+</ModMetaData>
