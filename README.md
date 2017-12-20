@@ -1,4 +1,4 @@
-Compatibility patch for Star Wars Factions + Combat Extended (b18)
+Compatibility patch for Beast Man Tribes + Combat Extended (b18)
 
 Added:
 - Race - bodyShape
