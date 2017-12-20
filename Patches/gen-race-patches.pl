@@ -34,7 +34,7 @@ foreach my $race (@RACES)
 <Patch>
 
 	<Operation Class="PatchOperationAddModExtension">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
 		<value>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
 				<bodyShape>Humanoid</bodyShape>
@@ -42,16 +42,30 @@ foreach my $race (@RACES)
 		</value>
 	</Operation>
 
-	<!-- tools melee specifications - Add tools node if it doesn't exist -->
+	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
 	<Operation Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/verbs</xpath>
+      		<success>Normal</success>
+    	</li>
+    	<li Class="PatchOperationRemove">
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/verbs</xpath>
+    	</li>
+  	</operations>
+	</Operation>
+
+	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
+	<Operation Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
       	<success>Invert</success>
     	</li>
     	<li Class="PatchOperationAdd">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
       	<value>
         	<tools />
       	</value>
@@ -60,7 +74,7 @@ foreach my $race (@RACES)
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
 		<value>
 				<li Class="CombatExtended.ToolCE">
 					<label>left fist</label>
@@ -101,11 +115,11 @@ foreach my $race (@RACES)
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
       	<success>Invert</success>
     	</li>
     	<li Class="PatchOperationAdd">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
       	<value>
         	<comps />
       	</value>
@@ -114,7 +128,7 @@ foreach my $race (@RACES)
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
 		<value>
 			<li>
 			  <compClass>CombatExtended.CompPawnGizmo</compClass>

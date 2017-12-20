@@ -2,7 +2,7 @@
 <Patch>
 
 	<Operation Class="PatchOperationAddModExtension">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
 		<value>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
 				<bodyShape>Humanoid</bodyShape>
@@ -10,16 +10,30 @@
 		</value>
 	</Operation>
 
-	<!-- tools melee specifications - Add tools node if it doesn't exist -->
+	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
 	<Operation Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/tools</xpath>
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/verbs</xpath>
+      		<success>Normal</success>
+    	</li>
+    	<li Class="PatchOperationRemove">
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/verbs</xpath>
+    	</li>
+  	</operations>
+	</Operation>
+
+	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
+	<Operation Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/tools</xpath>
       	<success>Invert</success>
     	</li>
     	<li Class="PatchOperationAdd">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
       	<value>
         	<tools />
       	</value>
@@ -28,7 +42,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/tools</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/tools</xpath>
 		<value>
 				<li Class="CombatExtended.ToolCE">
 					<label>left fist</label>
@@ -69,11 +83,11 @@
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/comps</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/comps</xpath>
       	<success>Invert</success>
     	</li>
     	<li Class="PatchOperationAdd">
-      	<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]</xpath>
       	<value>
         	<comps />
       	</value>
@@ -82,7 +96,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/comps</xpath>
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="ElephantMan"]/comps</xpath>
 		<value>
 			<li>
 			  <compClass>CombatExtended.CompPawnGizmo</compClass>
