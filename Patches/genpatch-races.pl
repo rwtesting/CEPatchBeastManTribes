@@ -33,17 +33,23 @@ foreach my $race (@RACES)
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
-	<Operation Class="PatchOperationAddModExtension">
+    <!-- ========== $race ========== -->
+
+    <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+
+	<li Class="PatchOperationAddModExtension">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
 		<value>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
 				<bodyShape>Humanoid</bodyShape>
 			</li>
 		</value>
-	</Operation>
+	</li>
 
 	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -54,10 +60,10 @@ foreach my $race (@RACES)
       		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/verbs</xpath>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
 	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -71,9 +77,10 @@ foreach my $race (@RACES)
       	</value>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
-	<Operation Class="PatchOperationAdd">
+	<!-- All BM races define LeftHand+RightHand (no head definition) -->
+	<li Class="PatchOperationAdd">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
 		<value>
 				<li Class="CombatExtended.ToolCE">
@@ -96,22 +103,11 @@ foreach my $race (@RACES)
 					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 					<armorPenetration>0.095</armorPenetration>
 				</li>
-				<li Class="CombatExtended.ToolCE">
-					<label>head</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>5</power>
-					<cooldownTime>1.85</cooldownTime>
-					<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-					<commonality>0.2</commonality>
-					<armorPenetration>0.079</armorPenetration>
-				</li>
 		</value>
-	</Operation>
+	</li>
 
 	<!-- Add comps node if it doesn't exist -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -125,9 +121,9 @@ foreach my $race (@RACES)
       	</value>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
-	<Operation Class="PatchOperationAdd">
+	<li Class="PatchOperationAdd">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
 		<value>
 			<li>
@@ -135,7 +131,11 @@ foreach my $race (@RACES)
 			</li>
 			<li Class="CombatExtended.CompProperties_Suppressable" />
 		</value>
-	</Operation>
+	</li>
+
+    </operations>  <!-- end sequence -->
+    </Operation>   <!-- end sequence -->
+
 </Patch>
 
 EOF
@@ -146,4 +146,24 @@ EOF
 exit(0);
 
 __END__
+
+
+TESTING
+
+	<!-- Combat tab should be in BasePawn but BMT defines BasePawn without it, so add it -->
+	<li Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	    <li Class="PatchOperationTest">
+      	        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/inspectorTabs/ITab_Pawn_Combat</xpath>
+      	        <success>Invert</success>
+    	    </li>
+    	    <li Class="PatchOperationAdd">
+      	        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/inspectorTabs</xpath>
+      	        <value>
+	            <li>ITab_Pawn_Combat</li>
+      	        </value>
+    	    </li>
+  	</operations>
+	</li>
 

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <!-- One patch sequence per original xml file (for reduced load times) -->
+
+  <!-- ========== BearMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="BearManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -11,9 +19,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="BearManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -23,9 +31,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="BearManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -35,9 +43,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="BearManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -47,9 +55,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: BearMan -->
+  </Operation>   <!-- End sequence: BearMan -->
+
+  <!-- ========== CamelMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="CamelManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -59,9 +76,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="CamelManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -71,9 +88,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="CamelManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -83,9 +100,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="CamelManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -95,9 +112,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: CamelMan -->
+  </Operation>   <!-- End sequence: CamelMan -->
+
+  <!-- ========== ElephantMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElephantManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -107,9 +133,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElephantManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -119,9 +145,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElephantManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -131,9 +157,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElephantManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -143,9 +169,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: ElephantMan -->
+  </Operation>   <!-- End sequence: ElephantMan -->
+
+  <!-- ========== ElkMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElkManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -155,9 +190,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElkManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -167,9 +202,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElkManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -179,9 +214,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="ElkManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -191,9 +226,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: ElkMan -->
+  </Operation>   <!-- End sequence: ElkMan -->
+
+  <!-- ========== FoxMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="FoxManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -203,9 +247,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="FoxManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -215,9 +259,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="FoxManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -227,9 +271,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="FoxManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -239,9 +283,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: FoxMan -->
+  </Operation>   <!-- End sequence: FoxMan -->
+
+  <!-- ========== GazelleMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="GazelleManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -251,9 +304,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="GazelleManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -263,9 +316,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="GazelleManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -275,9 +328,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="GazelleManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -287,9 +340,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: GazelleMan -->
+  </Operation>   <!-- End sequence: GazelleMan -->
+
+  <!-- ========== LynxMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="LynxManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -299,9 +361,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="LynxManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -311,9 +373,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="LynxManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -323,9 +385,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="LynxManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -335,9 +397,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: LynxMan -->
+  </Operation>   <!-- End sequence: LynxMan -->
+
+  <!-- ========== PigMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="PigManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -347,9 +418,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="PigManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -359,9 +430,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="PigManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -371,9 +442,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="PigManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -383,9 +454,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: PigMan -->
+  </Operation>   <!-- End sequence: PigMan -->
+
+  <!-- ========== RaccoonMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="RaccoonManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -395,9 +475,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="RaccoonManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -407,9 +487,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="RaccoonManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -419,9 +499,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="RaccoonManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -431,9 +511,18 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  </operations>  <!-- End sequence: RaccoonMan -->
+  </Operation>   <!-- End sequence: RaccoonMan -->
+
+  <!-- ========== WolfMan (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="WolfManWarrior"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -443,9 +532,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="WolfManTrader"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -455,9 +544,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="WolfManArcher"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -467,9 +556,9 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
 
-  <Operation Class="PatchOperationAddModExtension">
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="WolfManChief"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -479,7 +568,10 @@
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
+
+  </operations>  <!-- End sequence: WolfMan -->
+  </Operation>   <!-- End sequence: WolfMan -->
 
 </Patch>
 

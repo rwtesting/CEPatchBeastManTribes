@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
-	<Operation Class="PatchOperationAddModExtension">
+    <!-- ========== BearMan ========== -->
+
+    <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+
+	<li Class="PatchOperationAddModExtension">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="BearMan"]</xpath>
 		<value>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
 				<bodyShape>Humanoid</bodyShape>
 			</li>
 		</value>
-	</Operation>
+	</li>
 
 	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -22,10 +28,10 @@
       		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="BearMan"]/verbs</xpath>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
 	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -39,9 +45,10 @@
       	</value>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
-	<Operation Class="PatchOperationAdd">
+	<!-- All BM races define LeftHand+RightHand (no head definition) -->
+	<li Class="PatchOperationAdd">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="BearMan"]/tools</xpath>
 		<value>
 				<li Class="CombatExtended.ToolCE">
@@ -64,22 +71,11 @@
 					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 					<armorPenetration>0.095</armorPenetration>
 				</li>
-				<li Class="CombatExtended.ToolCE">
-					<label>head</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>5</power>
-					<cooldownTime>1.85</cooldownTime>
-					<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-					<commonality>0.2</commonality>
-					<armorPenetration>0.079</armorPenetration>
-				</li>
 		</value>
-	</Operation>
+	</li>
 
 	<!-- Add comps node if it doesn't exist -->
-	<Operation Class="PatchOperationSequence">
+	<li Class="PatchOperationSequence">
   	<success>Always</success>
   	<operations>
     	<li Class="PatchOperationTest">
@@ -93,9 +89,9 @@
       	</value>
     	</li>
   	</operations>
-	</Operation>
+	</li>
 
-	<Operation Class="PatchOperationAdd">
+	<li Class="PatchOperationAdd">
 		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="BearMan"]/comps</xpath>
 		<value>
 			<li>
@@ -103,6 +99,10 @@
 			</li>
 			<li Class="CombatExtended.CompProperties_Suppressable" />
 		</value>
-	</Operation>
+	</li>
+
+    </operations>  <!-- end sequence -->
+    </Operation>   <!-- end sequence -->
+
 </Patch>
 

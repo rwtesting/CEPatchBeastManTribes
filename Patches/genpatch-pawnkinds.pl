@@ -2,47 +2,69 @@
 use strict;
 use warnings;
 
-my @PAWNKINDS = qw(
+# Pawnkinds, one group per xml file in original mod.
+# Will use 1 patch sequence per file for faster load times.
+my @PAWNKINDS = (
+    [ qw(
     BearManWarrior
     BearManTrader
     BearManArcher
     BearManChief
+    ) ],
+    [ qw(
     CamelManWarrior
     CamelManTrader
     CamelManArcher
     CamelManChief
+    ) ],
+    [ qw(
     ElephantManWarrior
     ElephantManTrader
     ElephantManArcher
     ElephantManChief
+    ) ],
+    [ qw(
     ElkManWarrior
     ElkManTrader
     ElkManArcher
     ElkManChief
+    ) ],
+    [ qw(
     FoxManWarrior
     FoxManTrader
     FoxManArcher
     FoxManChief
+    ) ],
+    [ qw(
     GazelleManWarrior
     GazelleManTrader
     GazelleManArcher
     GazelleManChief
+    ) ],
+    [ qw(
     LynxManWarrior
     LynxManTrader
     LynxManArcher
     LynxManChief
+    ) ],
+    [ qw(
     PigManWarrior
     PigManTrader
     PigManArcher
     PigManChief
+    ) ],
+    [ qw(
     RaccoonManWarrior
     RaccoonManTrader
     RaccoonManArcher
     RaccoonManChief
+    ) ],
+    [ qw(
     WolfManWarrior
     WolfManTrader
     WolfManArcher
     WolfManChief
+    ) ],
 );
 
 my $OUTFILE = "./PawnKinds/Pawnkinds-CE-patch.xml";
@@ -53,12 +75,26 @@ print OUTFILE (<<EOF);
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
+  <!-- One patch sequence per original xml file (for reduced load times) -->
+
 EOF
 
-foreach my $pawnkind (@PAWNKINDS)
+my($pawngroup, $pawnkind, $pawngroupname);
+foreach $pawngroup (@PAWNKINDS)
 {
+    ($pawngroupname = $pawngroup->[0]) =~ s/Man.*$/Man/;
     print OUTFILE (<<EOF);
-  <Operation Class="PatchOperationAddModExtension">
+  <!-- ========== $pawngroupname (group) ========== -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+EOF
+    foreach $pawnkind (@$pawngroup)
+    {
+        print OUTFILE (<<EOF);
+  <li Class="PatchOperationAddModExtension">
     <xpath>Defs/PawnKindDef[defName="$pawnkind"]</xpath>
     <value>
       <li Class="CombatExtended.LoadoutPropertiesExtension">
@@ -68,7 +104,15 @@ foreach my $pawnkind (@PAWNKINDS)
         </primaryMagazineCount>
       </li>
     </value>
-  </Operation>
+  </li>
+
+EOF
+    }
+
+    # closer for this group
+    print OUTFILE (<<EOF);
+  </operations>  <!-- End sequence: $pawngroupname -->
+  </Operation>   <!-- End sequence: $pawngroupname -->
 
 EOF
 }
