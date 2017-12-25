@@ -2,6 +2,7 @@
 <ModMetaData>
   <name>[test] Beast Man Tribes + CE compatibility patch (b18)</name>
   <author>rwtesting</author>
+  <url>https://github.com/rwtesting/CEPatchBeastManTribes</url>
   <targetVersion>0.18.1722</targetVersion>
   <description>Compatibility patch for Beast Man Tribes + Combat Extended (b18)
 
