@@ -39,15 +39,6 @@ foreach my $race (@RACES)
     <success>Always</success>
     <operations>
 
-	<li Class="PatchOperationAddModExtension">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
-		<value>
-			<li Class="CombatExtended.RacePropertiesExtensionCE">
-				<bodyShape>Humanoid</bodyShape>
-			</li>
-		</value>
-	</li>
-
 	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
 	<li Class="PatchOperationSequence">
   	<success>Always</success>
@@ -130,6 +121,17 @@ foreach my $race (@RACES)
 			  <compClass>CombatExtended.CompPawnGizmo</compClass>
 			</li>
 			<li Class="CombatExtended.CompProperties_Suppressable" />
+		</value>
+	</li>
+
+	<!-- Update bodyShape last so that we know all previous sequence elements
+	     were successful.  Missing bodyShape error is very obvious in-game. -->
+	<li Class="PatchOperationAddModExtension">
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
+		<value>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
 		</value>
 	</li>
 
