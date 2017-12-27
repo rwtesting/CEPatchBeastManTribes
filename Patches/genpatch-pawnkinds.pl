@@ -42,7 +42,7 @@ foreach my $sourcefile (@SOURCEFILES)
     $patcher = new RWPatcher::Pawnkinds(
 	AmmoMin    => 20,  # number of arrows, not ammo packs
 	AmmoMax    => 30,
-        sourcemod  => $SOURCEMOD,
+        #sourcemod  => $SOURCEMOD,
         sourcefile => $sourcefile,
         cedata     => \%CEDATA,
         expected_parents => [ qw(
