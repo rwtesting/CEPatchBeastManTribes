@@ -1,0 +1,3 @@
+*.pl export-ignore
+.git* export-ignore
+Source/ export-ignore
