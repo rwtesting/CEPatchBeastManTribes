@@ -2,127 +2,75 @@
 use strict;
 use warnings;
 
-# Pawnkinds, one group per xml file in original mod.
-# Will use 1 patch sequence per file for faster load times.
-my @PAWNKINDS = (
-    [ qw(
-    BearManWarrior
-    BearManTrader
-    BearManArcher
-    BearManChief
-    ) ],
-    [ qw(
-    CamelManWarrior
-    CamelManTrader
-    CamelManArcher
-    CamelManChief
-    ) ],
-    [ qw(
-    ElephantManWarrior
-    ElephantManTrader
-    ElephantManArcher
-    ElephantManChief
-    ) ],
-    [ qw(
-    ElkManWarrior
-    ElkManTrader
-    ElkManArcher
-    ElkManChief
-    ) ],
-    [ qw(
-    FoxManWarrior
-    FoxManTrader
-    FoxManArcher
-    FoxManChief
-    ) ],
-    [ qw(
-    GazelleManWarrior
-    GazelleManTrader
-    GazelleManArcher
-    GazelleManChief
-    ) ],
-    [ qw(
-    LynxManWarrior
-    LynxManTrader
-    LynxManArcher
-    LynxManChief
-    ) ],
-    [ qw(
-    PigManWarrior
-    PigManTrader
-    PigManArcher
-    PigManChief
-    ) ],
-    [ qw(
-    RaccoonManWarrior
-    RaccoonManTrader
-    RaccoonManArcher
-    RaccoonManChief
-    ) ],
-    [ qw(
-    WolfManWarrior
-    WolfManTrader
-    WolfManArcher
-    WolfManChief
-    ) ],
+use lib "../../_lib";
+use RWPatcher::Pawnkinds;
+
+# Generate CE patches for pawnkind files.
+
+my $SOURCEMOD = "Beast Man Tribes";
+
+my @SOURCEFILES = qw(
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_BearManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_CamelManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_ElephantManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_ElkManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_FoxManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_GazelleManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_LynxManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_PigManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_RaccoonManTribe.xml
+    ../../1119191638/Defs/PawnKindDefs_Humanlikes/PawnKinds_WolfManTribe.xml
 );
 
-my $OUTFILE = "./PawnKinds/Pawnkinds-CE-patch.xml";
-open(OUTFILE, ">", $OUTFILE) or die("ERR: open/write $OUTFILE: $!\n");
-print("Generating patch file: $OUTFILE\n");
+# exceptions to default ammo counts
+my %CEDATA = (
+    BearManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    CamelManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    ElephantManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    ElkManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    FoxManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    GazelleManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    LynxManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    PigManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    RaccoonManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+    WolfManArcher	=> {AmmoMin => 30, AmmoMax => 50},
+);
 
-print OUTFILE (<<EOF);
-<?xml version="1.0" encoding="utf-8" ?>
-<Patch>
-
-  <!-- One patch sequence per original xml file (for reduced load times) -->
-
-EOF
-
-my($pawngroup, $pawnkind, $pawngroupname);
-foreach $pawngroup (@PAWNKINDS)
+my $patcher;
+foreach my $sourcefile (@SOURCEFILES)
 {
-    ($pawngroupname = $pawngroup->[0]) =~ s/Man.*$/Man/;
-    print OUTFILE (<<EOF);
-  <!-- ========== $pawngroupname (group) ========== -->
+    $patcher = new RWPatcher::Pawnkinds(
+	AmmoMin    => 20,  # number of arrows, not ammo packs
+	AmmoMax    => 30,
+        sourcemod  => $SOURCEMOD,
+        sourcefile => $sourcefile,
+        cedata     => \%CEDATA,
+        expected_parents => [ qw(
+            BearManBase
+            BearManWarrior
+            CamelManBase
+            CamelManWarrior
+            ElephantManBase
+            ElephantManWarrior
+            ElkManBase
+            ElkManWarrior
+            FoxManBase
+            FoxManWarrior
+            GazelleManBase
+            GazelleManWarrior
+            LynxManBase
+            LynxManWarrior
+            PigManBase
+            PigManWarrior
+            RaccoonManBase
+            RaccoonManWarrior
+            WolfManBase
+            WolfManWarrior
+	) ],
+    ) or die("ERR: Failed new RWPatcher::Pawnkinds: $!\n");
 
-  <Operation Class="PatchOperationSequence">
-  <success>Always</success>
-  <operations>
-
-EOF
-    foreach $pawnkind (@$pawngroup)
-    {
-        print OUTFILE (<<EOF);
-  <li Class="PatchOperationAddModExtension">
-    <xpath>Defs/PawnKindDef[defName="$pawnkind"]</xpath>
-    <value>
-      <li Class="CombatExtended.LoadoutPropertiesExtension">
-        <primaryMagazineCount>
-          <min>30</min>  <!-- single arrow count, not packs of arrows -->
-          <max>50</max>
-        </primaryMagazineCount>
-      </li>
-    </value>
-  </li>
-
-EOF
-    }
-
-    # closer for this group
-    print OUTFILE (<<EOF);
-  </operations>  <!-- End sequence: $pawngroupname -->
-  </Operation>   <!-- End sequence: $pawngroupname -->
-
-EOF
+    $patcher->generate_patches();
 }
-
-print OUTFILE (<<EOF);
-</Patch>
-
-EOF
-
-close(OUTFILE) or warn("WARN: close $OUTFILE: $!\n");
 
 exit(0);
 

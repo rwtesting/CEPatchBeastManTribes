@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!-- ========== CamelMan ========== -->
+
+    <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+
+	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
+	<li Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/verbs</xpath>
+      		<success>Normal</success>
+    	</li>
+    	<li Class="PatchOperationRemove">
+      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/verbs</xpath>
+    	</li>
+  	</operations>
+	</li>
+
+	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
+	<li Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/tools</xpath>
+      	<success>Invert</success>
+    	</li>
+    	<li Class="PatchOperationAdd">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]</xpath>
+      	<value>
+        	<tools />
+      	</value>
+    	</li>
+  	</operations>
+	</li>
+
+	<!-- All BM races define LeftHand+RightHand (no head definition) -->
+	<li Class="PatchOperationAdd">
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/tools</xpath>
+		<value>
+				<li Class="CombatExtended.ToolCE">
+					<label>left fist</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>7</power>
+					<cooldownTime>1.65</cooldownTime>
+					<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+					<armorPenetration>0.095</armorPenetration>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>right fist</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>7</power>
+					<cooldownTime>1.65</cooldownTime>
+					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+					<armorPenetration>0.095</armorPenetration>
+				</li>
+		</value>
+	</li>
+
+	<!-- Add comps node if it doesn't exist -->
+	<li Class="PatchOperationSequence">
+  	<success>Always</success>
+  	<operations>
+    	<li Class="PatchOperationTest">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/comps</xpath>
+      	<success>Invert</success>
+    	</li>
+    	<li Class="PatchOperationAdd">
+      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]</xpath>
+      	<value>
+        	<comps />
+      	</value>
+    	</li>
+  	</operations>
+	</li>
+
+	<li Class="PatchOperationAdd">
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]/comps</xpath>
+		<value>
+			<li>
+			  <compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+			<li Class="CombatExtended.CompProperties_Suppressable" />
+		</value>
+	</li>
+
+	<!-- Update bodyShape last so that we know all previous sequence elements
+	     were successful.  Missing bodyShape error is very obvious in-game. -->
+	<li Class="PatchOperationAddModExtension">
+		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="CamelMan"]</xpath>
+		<value>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</value>
+	</li>
+
+    </operations>  <!-- end sequence -->
+    </Operation>   <!-- end sequence -->
+
+</Patch>
+

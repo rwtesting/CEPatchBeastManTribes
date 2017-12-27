@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# TODO: move this into standard RWPatcher library for alien race mods
+
 my @RACES = qw(
     BearMan
     CamelMan
@@ -16,11 +18,16 @@ my @RACES = qw(
 );
 
 # Generate one patch file per listed race
+my $OUTDIR = "Alien Race";
 my($outfile);
 foreach my $race (@RACES)
 {
+    if (! -e $OUTDIR)
+    {
+        mkdir($OUTDIR) or die("ERR: mkdir $OUTDIR: $!\n");
+    }
     # Check file, overwrite any existing
-    $outfile = "./Races/" . $race . "-Race-CE-patch.xml";
+    $outfile = "./$OUTDIR/" . $race . "Race.xml";
     if (!open(OUTFILE, ">", $outfile))
     {
 	warn("WARN: open($outfile): $!.  Skipping.\n");
@@ -148,24 +155,4 @@ EOF
 exit(0);
 
 __END__
-
-
-TESTING
-
-	<!-- Combat tab should be in BasePawn but BMT defines BasePawn without it, so add it -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	    <li Class="PatchOperationTest">
-      	        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/inspectorTabs/ITab_Pawn_Combat</xpath>
-      	        <success>Invert</success>
-    	    </li>
-    	    <li Class="PatchOperationAdd">
-      	        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/inspectorTabs</xpath>
-      	        <value>
-	            <li>ITab_Pawn_Combat</li>
-      	        </value>
-    	    </li>
-  	</operations>
-	</li>
 

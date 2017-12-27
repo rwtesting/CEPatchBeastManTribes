@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!-- Warning: This patch will break if original mod moves weapons into diff files.
+         To fix this, please re-run script using new mod file paths. -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
+    <li Class="CombatExtended.PatchOperationFindMod">
+        <modName>Beast Man Tribes</modName>
+    </li>
+
+    <!-- ========== LynxManWarrior ========== -->
+
+    <li Class="PatchOperationAddModExtension">
+    <xpath>Defs/PawnKindDef[defName="LynxManWarrior"]</xpath>
+    <value>
+        <li Class="CombatExtended.LoadoutPropertiesExtension">
+            <primaryMagazineCount>
+                <min>20</min>
+                <max>30</max>
+            </primaryMagazineCount>
+        </li>
+    </value>
+    </li>
+
+    <!-- ========== LynxManTrader ========== -->
+
+    <li Class="PatchOperationAddModExtension">
+    <xpath>Defs/PawnKindDef[defName="LynxManTrader"]</xpath>
+    <value>
+        <li Class="CombatExtended.LoadoutPropertiesExtension">
+            <primaryMagazineCount>
+                <min>20</min>
+                <max>30</max>
+            </primaryMagazineCount>
+        </li>
+    </value>
+    </li>
+
+    <!-- ========== LynxManArcher ========== -->
+
+    <li Class="PatchOperationAddModExtension">
+    <xpath>Defs/PawnKindDef[defName="LynxManArcher"]</xpath>
+    <value>
+        <li Class="CombatExtended.LoadoutPropertiesExtension">
+            <primaryMagazineCount>
+                <min>30</min>
+                <max>50</max>
+            </primaryMagazineCount>
+        </li>
+    </value>
+    </li>
+
+    <!-- ========== LynxManChief ========== -->
+
+    <li Class="PatchOperationAddModExtension">
+    <xpath>Defs/PawnKindDef[defName="LynxManChief"]</xpath>
+    <value>
+        <li Class="CombatExtended.LoadoutPropertiesExtension">
+            <primaryMagazineCount>
+                <min>20</min>
+                <max>30</max>
+            </primaryMagazineCount>
+        </li>
+    </value>
+    </li>
+
+  </operations>  <!-- end sequence -->
+  </Operation>   <!-- end sequence -->
+
+</Patch>
+
