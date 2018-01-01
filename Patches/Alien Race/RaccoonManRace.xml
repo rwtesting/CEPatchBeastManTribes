@@ -1,110 +1,106 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
+    <!-- Warning: This patch will break if original mod moves weapons into diff files.
+         To fix this, please re-run script using new mod file paths. -->
+
+  <Operation Class="PatchOperationSequence">
+  <success>Always</success>
+  <operations>
+
     <!-- ========== RaccoonMan ========== -->
 
-    <Operation Class="PatchOperationSequence">
+    <li Class="PatchOperationAddModExtension">
+    <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
+    <value>
+        <li Class="CombatExtended.RacePropertiesExtensionCE">
+            <bodyShape>Humanoid</bodyShape>
+        </li>
+    </value>
+    </li>
+
+    <!-- Add comps node if it doesn't exist -->
+    <li Class="PatchOperationSequence">
     <success>Always</success>
     <operations>
+        <li Class="PatchOperationTest">
+        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/comps</xpath>
+            <success>Invert</success>
+        </li>
+        <li Class="PatchOperationAdd">
+        <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
+        <value>
+            <comps />
+        </value>
+        </li>
+    </operations>
+    </li>
 
-	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/verbs</xpath>
-      		<success>Normal</success>
-    	</li>
-    	<li Class="PatchOperationRemove">
-      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/verbs</xpath>
-    	</li>
-  	</operations>
-	</li>
+    <li Class="PatchOperationAdd">
+    <xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/comps</xpath>
+        <value>
+            <li>
+                <compClass>CombatExtended.CompPawnGizmo</compClass>
+            </li>
+            <li Class="CombatExtended.CompProperties_Suppressable" />
+        </value>
+    </li>
 
-	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/tools</xpath>
-      	<success>Invert</success>
-    	</li>
-    	<li Class="PatchOperationAdd">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
-      	<value>
-        	<tools />
-      	</value>
-    	</li>
-  	</operations>
-	</li>
+    <!-- Patch RaccoonMan : Verbs (convert to tools) -->
 
-	<!-- All BM races define LeftHand+RightHand (no head definition) -->
-	<li Class="PatchOperationAdd">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/tools</xpath>
-		<value>
-				<li Class="CombatExtended.ToolCE">
-					<label>left fist</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>7</power>
-					<cooldownTime>1.65</cooldownTime>
-					<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-					<armorPenetration>0.095</armorPenetration>
-				</li>
-				<li Class="CombatExtended.ToolCE">
-					<label>right fist</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>7</power>
-					<cooldownTime>1.65</cooldownTime>
-					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-					<armorPenetration>0.095</armorPenetration>
-				</li>
-		</value>
-	</li>
+    <!-- Add tools node if it doesn't exist -->
+    <li Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+        <li Class="PatchOperationTest">
+        <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/tools</xpath>
+            <success>Invert</success>
+        </li>
+        <li Class="PatchOperationAdd">
+        <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
+            <value>
+                <tools />
+            </value>
+        </li>
+    </operations>
+    </li>
 
-	<!-- Add comps node if it doesn't exist -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/comps</xpath>
-      	<success>Invert</success>
-    	</li>
-    	<li Class="PatchOperationAdd">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
-      	<value>
-        	<comps />
-      	</value>
-    	</li>
-  	</operations>
-	</li>
+    <!-- Convert old verbs to new tools nodes -->
+    <li Class="PatchOperationAdd">
+    <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/tools</xpath>
+    <value>
+        <li Class="CombatExtended.ToolCE">
+            <label>right hand</label>
+            <id>righthandblunt</id>
+            <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+            <cooldownTime>1.55</cooldownTime>
+            <linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+            <power>5</power>
+            <capacities><li>Blunt</li></capacities>
+            <armorPenetration>0.095</armorPenetration>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+            <label>left hand</label>
+            <id>lefthandblunt</id>
+            <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+            <cooldownTime>1.55</cooldownTime>
+            <linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+            <power>5</power>
+            <capacities><li>Blunt</li></capacities>
+            <armorPenetration>0.095</armorPenetration>
+        </li>
+    </value>
+    </li>
 
-	<li Class="PatchOperationAdd">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/comps</xpath>
-		<value>
-			<li>
-			  <compClass>CombatExtended.CompPawnGizmo</compClass>
-			</li>
-			<li Class="CombatExtended.CompProperties_Suppressable" />
-		</value>
-	</li>
+    <!-- Delete old verbs node (causes CE errors) -->
+    <li Class="PatchOperationRemove">
+    <xpath>Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]/verbs</xpath>
+    </li>
 
-	<!-- Update bodyShape last so that we know all previous sequence elements
-	     were successful.  Missing bodyShape error is very obvious in-game. -->
-	<li Class="PatchOperationAddModExtension">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="RaccoonMan"]</xpath>
-		<value>
-			<li Class="CombatExtended.RacePropertiesExtensionCE">
-				<bodyShape>Humanoid</bodyShape>
-			</li>
-		</value>
-	</li>
+    <!-- Patch RaccoonMan : Stats -->
 
-    </operations>  <!-- end sequence -->
-    </Operation>   <!-- end sequence -->
+  </operations>  <!-- end sequence -->
+  </Operation>   <!-- end sequence -->
 
 </Patch>
 

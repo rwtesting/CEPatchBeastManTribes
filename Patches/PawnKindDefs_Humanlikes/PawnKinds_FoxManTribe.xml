@@ -8,10 +8,6 @@
   <success>Always</success>
   <operations>
 
-    <li Class="CombatExtended.PatchOperationFindMod">
-        <modName>Beast Man Tribes</modName>
-    </li>
-
     <!-- ========== FoxManWarrior ========== -->
 
     <li Class="PatchOperationAddModExtension">

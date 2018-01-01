@@ -2,154 +2,34 @@
 use strict;
 use warnings;
 
-# TODO: move this into standard RWPatcher library for alien race mods
+use lib $ENV{RWPATCHER_LIB};
+use RWPatcher::Races::AlienRaces;
 
-my @RACES = qw(
-    BearMan
-    CamelMan
-    ElephantMan
-    ElkMan
-    FoxMan
-    GazelleMan
-    LynxMan
-    PigMan
-    RaccoonMan
-    WolfMan
+my $SOURCEMOD = qq(Beast Man Tribes);
+my @SOURCEFILES = (
+    "../../1119191638/Defs/Alien Race/BearManRace.xml",
+    "../../1119191638/Defs/Alien Race/CamelManRace.xml",
+    "../../1119191638/Defs/Alien Race/ElephantManRace.xml",
+    "../../1119191638/Defs/Alien Race/ElkManRace.xml",
+    "../../1119191638/Defs/Alien Race/FoxManRace.xml",
+    "../../1119191638/Defs/Alien Race/GazelleManRace.xml",
+    "../../1119191638/Defs/Alien Race/LynxManRace.xml",
+    "../../1119191638/Defs/Alien Race/PigManRace.xml",
+    "../../1119191638/Defs/Alien Race/RaccoonManRace.xml",
+    "../../1119191638/Defs/Alien Race/WolfManRace.xml",
 );
 
-# Generate one patch file per listed race
-my $OUTDIR = "Alien Race";
-my($outfile);
-foreach my $race (@RACES)
+my $patcher;
+foreach my $sourcefile (@SOURCEFILES)
 {
-    if (! -e $OUTDIR)
-    {
-        mkdir($OUTDIR) or die("ERR: mkdir $OUTDIR: $!\n");
-    }
-    # Check file, overwrite any existing
-    $outfile = "./$OUTDIR/" . $race . "Race.xml";
-    if (!open(OUTFILE, ">", $outfile))
-    {
-	warn("WARN: open($outfile): $!.  Skipping.\n");
-        next;
-    }
-    print("Generating patch file: $outfile\n");
+    $patcher = new RWPatcher::Races::AlienRaces(
+        #sourcemod  => $SOURCEMOD,
+        sourcefile  => $sourcefile,
+        cedata      => {},
+        expected_parents => "BasePawn",
+    ) or die("ERR: Failed new RWPatcher::Races::AlienRaces: $!\n");
 
-    # Generate patch contents
-    print OUTFILE (<<EOF);
-<?xml version="1.0" encoding="utf-8" ?>
-<Patch>
-
-    <!-- ========== $race ========== -->
-
-    <Operation Class="PatchOperationSequence">
-    <success>Always</success>
-    <operations>
-
-	<!-- Delete old a17 verbs node. Causes armor pen errors during melee. -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/verbs</xpath>
-      		<success>Normal</success>
-    	</li>
-    	<li Class="PatchOperationRemove">
-      		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/verbs</xpath>
-    	</li>
-  	</operations>
-	</li>
-
-	<!-- Add tools melee specifications - Add tools node if it doesn't exist -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
-      	<success>Invert</success>
-    	</li>
-    	<li Class="PatchOperationAdd">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
-      	<value>
-        	<tools />
-      	</value>
-    	</li>
-  	</operations>
-	</li>
-
-	<!-- All BM races define LeftHand+RightHand (no head definition) -->
-	<li Class="PatchOperationAdd">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/tools</xpath>
-		<value>
-				<li Class="CombatExtended.ToolCE">
-					<label>left fist</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>7</power>
-					<cooldownTime>1.65</cooldownTime>
-					<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-					<armorPenetration>0.095</armorPenetration>
-				</li>
-				<li Class="CombatExtended.ToolCE">
-					<label>right fist</label>
-					<capacities>
-						<li>Blunt</li>
-					</capacities>
-					<power>7</power>
-					<cooldownTime>1.65</cooldownTime>
-					<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-					<armorPenetration>0.095</armorPenetration>
-				</li>
-		</value>
-	</li>
-
-	<!-- Add comps node if it doesn't exist -->
-	<li Class="PatchOperationSequence">
-  	<success>Always</success>
-  	<operations>
-    	<li Class="PatchOperationTest">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
-      	<success>Invert</success>
-    	</li>
-    	<li Class="PatchOperationAdd">
-      	<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
-      	<value>
-        	<comps />
-      	</value>
-    	</li>
-  	</operations>
-	</li>
-
-	<li Class="PatchOperationAdd">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]/comps</xpath>
-		<value>
-			<li>
-			  <compClass>CombatExtended.CompPawnGizmo</compClass>
-			</li>
-			<li Class="CombatExtended.CompProperties_Suppressable" />
-		</value>
-	</li>
-
-	<!-- Update bodyShape last so that we know all previous sequence elements
-	     were successful.  Missing bodyShape error is very obvious in-game. -->
-	<li Class="PatchOperationAddModExtension">
-		<xpath>/Defs/AlienRace.ThingDef_AlienRace[defName="$race"]</xpath>
-		<value>
-			<li Class="CombatExtended.RacePropertiesExtensionCE">
-				<bodyShape>Humanoid</bodyShape>
-			</li>
-		</value>
-	</li>
-
-    </operations>  <!-- end sequence -->
-    </Operation>   <!-- end sequence -->
-
-</Patch>
-
-EOF
-
-    close(OUTFILE) or warn("WARN: close($outfile): $!\n");
+    $patcher->generate_patches();
 }
 
 exit(0);
